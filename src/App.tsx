@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import React from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
-const token = "777d27b0d9ba335844aa290561f21e5b";
+
 function App() {
   return (
     <div id="App">
@@ -80,6 +80,7 @@ const InformationComponent = () => {
   const Weather_infroamation = (capital: any) => {
     set_capital_weather({ capital });
     handleOpen();
+    const token = "777d27b0d9ba335844aa290561f21e5b";
     fetch(
       `http://api.weatherstack.com/current?access_key=${token}&query=${capital}`
     )
