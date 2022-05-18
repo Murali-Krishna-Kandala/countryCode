@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  fireEvent,
-  render,
-  act,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, act, waitFor } from "@testing-library/react";
 import App, { Info, Home } from "./App";
 
 import { BrowserRouter } from "react-router-dom";
