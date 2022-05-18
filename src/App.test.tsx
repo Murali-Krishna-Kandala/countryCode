@@ -278,4 +278,38 @@ describe("Info", () => {
     });
     // expect(container.querySelectorAll("div")).toBeCalled();
   });
+
+  test("shoould be able load when no data is available in localstorage", () => {
+    localStorage.removeItem("myd");
+    const InfoCmp = render(<Info />);
+    const container = InfoCmp.container;
+    expect(container.querySelectorAll("table").length).toBe(1);
+  });
+
+  test("Should be able to show modal", () => {
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(weather),
+      })
+    ) as jest.Mock;
+    const InfoCmp = render(<Info />);
+    const container = InfoCmp.container;
+    const baseElement = InfoCmp.baseElement;
+    const tRows = container.getElementsByTagName("tr").length;
+    const capitalName = container.getElementsByTagName("td")[0];
+    const population = container.getElementsByTagName("td")[1];
+    const latlng = container.getElementsByTagName("td")[2];
+    const Wbutton = container.querySelectorAll("td button")[0];
+    expect(tRows).toBe(2);
+    act(() => {
+      fireEvent.click(Wbutton);
+    });
+    console.log("html", baseElement.innerHTML);
+    expect(global.fetch).toBeCalled();
+    expect(baseElement.querySelectorAll("#modal").length).toBe(1);
+    act(() => {
+      fireEvent.click(baseElement.querySelectorAll(".MuiBackdrop-root")[0]);
+    });
+    expect(baseElement.querySelectorAll("#modal").length).toBe(0);
+  });
 });
